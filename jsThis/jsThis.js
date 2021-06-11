@@ -37,7 +37,7 @@ myObj1.foo()
  * Example 3
  */
 
- const logThis2 = () => {
+const logThis2 = () => {
   console.log("Example 3 ", this);
 }
 

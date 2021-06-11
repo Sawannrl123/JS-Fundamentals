@@ -1,0 +1,22 @@
+[
+  { "code": "001", "name": "Metro Manila", "region": "000" },
+  { "code": "002", "name": "Mindanao", "region": "000" },
+
+  { "code": "0010", "name": "Metro Manila", "region": "001" },
+  { "code": "0011", "name": "Agusan Del Norte", "region": "002" },
+
+  { "code": "00025", "name": "Caloocan City", "region": "0010" },
+  { "code": "00026", "name": "Ermita", "region": "0010" },
+  { "code": "00027", "name": "Buenavista", "region": "0011" },
+  { "code": "00028", "name": "BUTUAN CITY", "region": "0011" },
+
+  { "code": "000041", "name": "Tandang", "region": "00025" },
+  { "code": "000042", "name": "Manila", "region": "00025" },
+  { "code": "000041", "name": "Imus", "region": "00026" },
+  { "code": "000042", "name": "Tarlac", "region": "00026" },
+
+  { "code": "000041", "name": "Rizal", "region": "00027" },
+  { "code": "000042", "name": "Tayak", "region": "00027" },
+  { "code": "000041", "name": "Liliw", "region": "00028" },
+  { "code": "000042", "name": "Quezon", "region": "00028" }
+]
