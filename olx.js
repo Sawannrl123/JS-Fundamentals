@@ -156,7 +156,73 @@ const boldloudandrepeat = compose(bold, loud, repeat);
 
 console.log(boldloudandrepeat("hello"));
 
+/**
+ * 2nd Round
+ */
 
+var name = "olx";
+var myObject = {
+  name: "myObject",
+  property: this.name,
+  regularFunction: function() {
+    return this.name
+  },
+  arrowFunction: () => {
+    return this.name;
+  },
+  iife: (function() {
+    return this.name
+  })()
+}
+// this.name - olx
+// myObject.name - myObject
+// myObject.property - myObject
+// myObject.iife - olx
+// const regFn = myObject.regularFunction;
+// regFn.call(myObject) - myObject
+// regFn() - olx
+//  regFn.call(window) - olx
+// myObject.arrowFunction.call(myObject) - olx
+// myObject.arrowFunction() - olx
+//  myObject.arrowFunction.call(window) - olx
 
+//const _ = require('lodash');
+const throttle = (func, limit) => {
+  let lastFunc;
+  let lastRan;
+  let firstRan;
+  return function() {
+    const args = arguments;
+    const context = this;
+    if(!firstRan) {
+      func.apply(context, args);
+      firstRan = Date.now();
+    } else {
+      clearTimeout(lastFunc);
+      lastFunc = setTimeout(function(){
+        func.apply(context, args);
+        lastRan = Date.now();
+      }, limit)
+    }
+  }
+}
+ 
+function handler(args){
+  console.log(args);
+}
 
+const xy = throttle(handler, 5000);
+xy('a'); 
+xy('b');
+xy('c');
+xy('d');
 
+const mountTimeStamp = Date.now();
+
+const comp = (props) => {
+  const mountTimeStamp = useRef(Date.now());
+  useEffect(()=>{
+    console.log(mountTimeStamp.current);
+  },[...props]);
+  return null;
+}
