@@ -226,3 +226,46 @@ const comp = (props) => {
   },[...props]);
   return null;
 }
+
+
+/**
+ * 3rd round
+ */
+
+const str = 'aabbbbbbbccaa';
+
+const list = {};
+str.split('').map(char => {
+  if(char in list) {
+    list[char] += 1;
+  } else {
+    list[char] = 1;
+  }
+});
+
+let max=0;
+let maxKey;
+
+Object.entries(list).map(([key, value]) => {
+  if (max < value) {
+    max = value;
+    maxKey = key;
+  }
+})
+console.log(maxKey);
+
+function deepClone(obj) {
+  if(typeof(obj) !== "object") return obj;
+  if(!obj) return obj;
+  let dup = (obj instanceof Array) ? [] : {};
+  for(var i in obj) {
+    if(obj.hasOwnProperty(i)) {
+      dup[i] = deepClone(obj[i]);
+    }
+  }
+  return dup;
+}
+
+console.log(deepClone({a: 1, b: "sawan"}));
+
+// Read site-cacher
