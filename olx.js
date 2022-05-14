@@ -1,9 +1,9 @@
-var a=1;
-var b=a;
-a=2;
+var a = 1;
+var b = a;
+a = 2;
 console.log(b); //?
 
-var x = [1,2,3];
+var x = [1, 2, 3];
 var y = x;
 x[0] = 2;
 console.log(y[0]); //?
@@ -11,37 +11,34 @@ console.log(y[0]); //?
 x = [10, 20, 30];
 console.log(y[0]); //?
 
-
-
 function main() {
   console.log(this);
   this.name = "Ironman";
   var sayHiObj = {
     name: "Batman",
-    sayHi:  () => {
+    sayHi: () => {
       var self = this;
-      console.log(this.name); // ?, 
+      console.log(this.name); // ?,
       (function () {
-        console.log(this.name); // ?, 
-        console.log(self.name); // ?, 
+        console.log(this.name); // ?,
+        console.log(self.name); // ?,
       })();
     },
-    sayHello:  function() {
+    sayHello: function () {
       var self = this;
-      console.log(this.name); // ?, 
+      console.log(this.name); // ?,
       (function () {
-        console.log(this.name); // ?, 
-        console.log(self.name); // ?, 
+        console.log(this.name); // ?,
+        console.log(self.name); // ?,
       })();
     },
   };
 
-   sayHiObj.sayHi();
-   sayHiObj.sayHello();
+  sayHiObj.sayHi();
+  sayHiObj.sayHello();
 }
 
 main();
-
 
 function asyncFunction(a, b, callback) {
   const isError = Math.random() > 0.7;
@@ -68,17 +65,17 @@ function asyncFunction2(a, b, callback) {
 }
 
 function promisify(fn) {
-  return function(a, b) {
+  return function (a, b) {
     return new Promise((resolve, reject) => {
-        fn(a, b, function(result, error) {
-            if(error) reject(err);
-            resolve(result);
-        })
-    })
-  }
+      fn(a, b, function (result, error) {
+        if (error) reject(err);
+        resolve(result);
+      });
+    });
+  };
 }
 
-asyncFunction(1, 2, function(result, err) {
+asyncFunction(1, 2, function (result, err) {
   console.log(result, err);
 });
 
@@ -91,22 +88,19 @@ promisifiedFn(1, 2)
   })
   .catch(console.log);
 
-
-
-
 function memoized(fn) {
   let cache = {};
 
   return (a, b) => {
     const key = `${a}_${b}`;
     if (key in cache) {
-        return cache[key]
+      return cache[key];
     } else {
-        let result = fn(a, b);
-        cache[key] = result;
-        return result;
+      let result = fn(a, b);
+      cache[key] = result;
+      return result;
     }
-  }
+  };
 }
 
 function fun(a, b) {
@@ -129,20 +123,18 @@ console.log("1st Call", logExecutionTime(memoFun, [1, 2]));
 console.log("2nd call", logExecutionTime(memoFun, [2, 1]));
 console.log("3rd call", logExecutionTime(memoFun, [1, 3]));
 
-
 function logExecutionTime(fn, args) {
-  const start = console.time('fn');
+  const start = console.time("fn");
   const result = fn(...args);
-  console.timeEnd('fn');
+  console.timeEnd("fn");
   return result;
 }
 
-
 function compose(...funcs) {
-    return function(str) {
-        funcs.reverse().map(fn => str = fn(str));
-        return str;
-    }
+  return function (str) {
+    funcs.reverse().map((fn) => (str = fn(str)));
+    return str;
+  };
 }
 
 const loud = (str) => str.toUpperCase();
@@ -164,16 +156,16 @@ var name = "olx";
 var myObject = {
   name: "myObject",
   property: this.name,
-  regularFunction: function() {
-    return this.name
+  regularFunction: function () {
+    return this.name;
   },
   arrowFunction: () => {
     return this.name;
   },
-  iife: (function() {
-    return this.name
-  })()
-}
+  iife: (function () {
+    return this.name;
+  })(),
+};
 // this.name - olx
 // myObject.name - myObject
 // myObject.property - myObject
@@ -191,59 +183,58 @@ const throttle = (func, limit) => {
   let lastFunc;
   let lastRan;
   let firstRan;
-  return function() {
+  return function () {
     const args = arguments;
     const context = this;
-    if(!firstRan) {
+    if (!firstRan) {
       func.apply(context, args);
       firstRan = Date.now();
     } else {
       clearTimeout(lastFunc);
-      lastFunc = setTimeout(function(){
+      lastFunc = setTimeout(function () {
         func.apply(context, args);
         lastRan = Date.now();
-      }, limit)
+      }, limit);
     }
-  }
-}
- 
-function handler(args){
+  };
+};
+
+function handler(args) {
   console.log(args);
 }
 
 const xy = throttle(handler, 5000);
-xy('a'); 
-xy('b');
-xy('c');
-xy('d');
+xy("a");
+xy("b");
+xy("c");
+xy("d");
 
 const mountTimeStamp = Date.now();
 
 const comp = (props) => {
   const mountTimeStamp = useRef(Date.now());
-  useEffect(()=>{
+  useEffect(() => {
     console.log(mountTimeStamp.current);
-  },[...props]);
+  }, [...props]);
   return null;
-}
-
+};
 
 /**
  * 3rd round
  */
 
-const str = 'aabbbbbbbccaa';
+const str = "aabbbbbbbccaa";
 
 const list = {};
-str.split('').map(char => {
-  if(char in list) {
+str.split("").map((char) => {
+  if (char in list) {
     list[char] += 1;
   } else {
     list[char] = 1;
   }
 });
 
-let max=0;
+let max = 0;
 let maxKey;
 
 Object.entries(list).map(([key, value]) => {
@@ -251,15 +242,15 @@ Object.entries(list).map(([key, value]) => {
     max = value;
     maxKey = key;
   }
-})
+});
 console.log(maxKey);
 
 function deepClone(obj) {
-  if(typeof(obj) !== "object") return obj;
-  if(!obj) return obj;
-  let dup = (obj instanceof Array) ? [] : {};
-  for(var i in obj) {
-    if(obj.hasOwnProperty(i)) {
+  if (typeof obj !== "object") return obj;
+  if (!obj) return obj;
+  let dup = obj instanceof Array ? [] : {};
+  for (var i in obj) {
+    if (obj.hasOwnProperty(i)) {
       dup[i] = deepClone(obj[i]);
     }
   }
@@ -269,3 +260,5 @@ function deepClone(obj) {
 console.log(deepClone({a: 1, b: "sawan"}));
 
 // Read site-cacher
+
+//https://www.cognitoforms.com/SunriseMentorsPvtLtd/InterviewExperience#lewDqLsbn2rkysoWjiLEIlzatU3kCbh1JVuHb4a1RNA$*
