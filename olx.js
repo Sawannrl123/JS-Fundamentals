@@ -12,7 +12,7 @@ x = [10, 20, 30];
 console.log(y[0]); //?
 
 function main() {
-  console.log(this);
+  console.log(this); // ?
   this.name = "Ironman";
   var sayHiObj = {
     name: "Batman",
@@ -258,6 +258,80 @@ function deepClone(obj) {
 }
 
 console.log(deepClone({a: 1, b: "sawan"}));
+
+//----------------------------------------------
+
+function makeKey(arr) {
+  const sortedParameter = arr.map(a => {
+      if (Array.isArray(a)) {
+          return a.sort();
+      } else if (typeof a === 'object') {
+          return Object.keys(a).sort().reduce((obj, val) => {
+              obj[val] = a[val];
+              return obj;
+          }, {})
+      }
+      return a;
+  });
+
+  return JSON.stringify(sortedParameter);
+}
+
+function memoize(fn) {
+  const hashMap = new Map();
+
+  return function(...args) {
+      const rest = args.slice(0, -1);
+      const key = makeKey(rest);
+      const callback = args[args.length - 1];
+
+      if (hashMap.has(key)) {
+          console.log('From Cache');
+          const { error, data } = hashMap.get(key);
+
+          callback(error, data);
+          return { error, data };
+      }
+
+      console.log('From Execution');
+      fn(...rest, function(error, data) {
+          hashMap.set(key, { error, data });
+          callback(error, data);
+      });
+  }
+}
+
+function slowFunction(arg1, arg2, callback) {
+  setTimeout(() => {
+      callback(null, {
+          response1: arg1,
+          response2: arg2
+      });
+  }, 1000);
+}
+
+slowFunction('test', 'function', function(error, data) {
+  // response after 1 sec 
+  console.log({error, data})
+
+  slowFunction('test', 'function', function(error, data) {
+      // response after 1 sec 
+      console.log({error, data})
+  }) 
+});
+
+const fastFunction = memoize(slowFunction);
+
+fastFunction('test', 'function', function(error, data) {
+  // response after 1 sec 
+  console.log({error, data})
+
+  fastFunction('test', 'function', function(error, data) {
+      // immediate response
+      console.log({error, data})
+  }) 
+});
+// -----------------------------------------------------------------------------
 
 // Read site-cacher
 

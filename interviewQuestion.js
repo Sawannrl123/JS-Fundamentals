@@ -153,32 +153,33 @@ console.log(a); // ?
 
 
 (function abc() {
-  console.log(a)
+  console.log(a) //?
   var a = 10;
-  console.log(a)
+  console.log(a) //?
   var a = 70;
-  console.log(a)
+  console.log(a) //?
   a = 80;
-  console.log(a)
+  console.log(a) //?
   if (true) {
-    console.log(a)
+    console.log(a) //?
 
     let a = 20;
-    console.log(a)
+    console.log(a) //?
     let a = 30;
-    console.log(a)
+    console.log(a) //?
     a = 40
-    console.log(a)
+    console.log(a) //?
 
     const a = 40;
-    console.log(a)
+    console.log(a) //?
     const a = 50;
-    console.log(a)
+    console.log(a) //?
     a = 60
-    console.log(a)
+    console.log(a) //?
   }
-  console.log(a)
+  console.log(a) //?
 })()
+console.log(a) //?
 ------------------------------------
 
 ------------------------------------
@@ -200,3 +201,16 @@ function a(){
   }
 }
 ------------------------------------
+
+
+const obj = {
+  name: {
+    fname:'Test',
+    lanme: 'demo'
+  },
+  age: 30
+}
+
+'Test Demo is 30 years old'
+
+const arr = [10, 20, 30, 40, 50];
