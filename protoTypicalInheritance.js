@@ -28,6 +28,8 @@ Admin.prototype.deleteUser = function(u){
   users = users.filter(user => user.email !== u.email);
 }
 
+// Admin.prototype.constructor = Admin;
+
 console.log(User.prototype);
 
 var userOne = new User("sawannirala.09@gmail.com", "Sawan Nirala");

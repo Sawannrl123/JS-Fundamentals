@@ -214,3 +214,114 @@ const obj = {
 'Test Demo is 30 years old'
 
 const arr = [10, 20, 30, 40, 50];
+
+-------------------------------------
+
+// console.log(processData(sum)(4)(2,2)(2,3)()); // 13
+// console.log(processData(sum)(1)(2)(2)()); // 5
+// console.log(processData(mul)(1)(1)(1)(1)(1)(1)()); // 1
+// console.log(processData(mul)(1)(1)(1)(1)(2, 1)()); // 2
+// console.log(processData(mul)(1, 1, 10, 0)(2, 1)());//0
+
+function sum(a, b) {
+  return a + b;
+};
+
+function mul(a, b) {
+  return a * b;
+};
+
+// Solution
+function processData(operation) {
+    const initial = operation?.name === 'sum' ? 0 : 1;
+    return function test(...a) {
+        const aParams = a.reduce((prev, curr) => operation(prev, curr), initial);
+        return function(...b) {
+            if (b.length) {
+                const bParams = b.reduce((prev, curr) => operation(prev, curr), initial);
+
+                return test(operation(aParams, bParams));
+            }
+            return aParams;
+        }
+    }
+}
+
+console.log(processData(mul)(1, 1, 10, 0)(2, 1)());
+
+-------------------------------------
+
+// /* upperBandFilter(inputArray, threshold)
+upperBandFilter([1,2,3,55,23,4,7,2,8,9,33], [
+    (item) => {
+        return item >= 7 ? 7 : item
+    },
+    (item) => {
+        return item * 2
+    },
+    (item) => {
+        return item + 2
+    }
+])
+
+// // output: a) [1,2,3,7,7,4,7,2,7,7,7]
+// // output: b) [2,4,6,14,14,8,14,4,14,14,14]
+// // output: c) [4,6,8,16,16,10,16,6,16,16,16]
+
+function upperBandFilter(inputArray, threshold) {
+  const output = [];
+  let arrCopy = [...inputArray];
+  threshold.forEach(cb => {
+    arrCopy = arrCopy.map((elem) => {
+      return cb(elem);
+    })
+    output.push(arrCopy);
+  });
+  return output;
+}
+
+-------------------------------------
+
+// // Input: num1 = "11", num2 = "123"
+// // Output: "134"
+
+function makeStringOfSpecificLength(str, len) {
+  const zeroLength = len - str.length;
+  const zeroArray = new Array(zeroLength).fill('0');
+  return [...zeroArray, ...str];
+}
+
+function sumFromEnd(num1, num2) {
+  const len = num1.length > num2.length ? num1.length : num2.length;
+  const output = new Array(len+1);
+  const num1Arr = num1.length === len ? num1 : makeStringOfSpecificLength(num1, len);
+  const num2Arr = num2.length === len ? num2 : makeStringOfSpecificLength(num2, len);
+  let carry = 0;
+
+  for(let i=len-1; i>=0; i--) {
+    const sum = (+num1Arr[i]) + (+num2Arr[i]) + carry;
+    output[i+1] = sum%10;
+    carry = sum>9 ? 1 : 0;
+  }
+
+  if (carry !== 0) output[0] = carry;
+
+  return output.join('');
+}
+
+sumFromEnd("999", "999999");
+
+-------------------------------------
+
+
+const arr = [1, 30, 21, 2, 11, 31, 7, 6, 5];
+
+// Write a promise function to only resolve data when the elem of arr[index] is in bound of 0 to 10
+
+function inBound() {
+  // code here
+}
+
+inBound().then(val => console.log(val)).catch(err => console.error(err));
+
+
