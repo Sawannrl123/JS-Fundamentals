@@ -1,0 +1,27 @@
+.tab {
+  font-size: 14px;
+  padding: 7px 20px;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+
+  &.active,
+  &:hover {
+    background-color: #ddd;
+    color: #333;
+  }
+}
+
+.content {
+  opacity: 0;
+  height: 0;
+  visibility: hidden;
+  transition: all 0.3s linear;
+
+  &.active {
+    height: auto;
+    visibility: visible;
+    opacity: 1;
+    padding: 20px 0;
+  }
+}

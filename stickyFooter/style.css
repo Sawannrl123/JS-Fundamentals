@@ -30,5 +30,15 @@ footer {
 }
 
 .scrollable {
-  min-height: calc(100vh - 92px); /*Subtract height of footer*/
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.body {
+  flex: 1;
+  max-height: calc(100vh - 10rem);
+  overflow: auto;
 }

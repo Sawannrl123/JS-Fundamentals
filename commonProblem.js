@@ -32,10 +32,10 @@ const obj = {
   age: 25,
 };
 
-const flattern = (obj, res = {}, parentKey) => {
+const flatternObj = (obj, res = {}, parentKey) => {
   for (const [key, value] of Object.entries(obj)) {
     if (typeof value === "object" && !Array.isArray(value)) {
-      flattern(value, res, parentKey ? `${parentKey}.${key}` : key);
+      flatternObj(value, res, parentKey ? `${parentKey}.${key}` : key);
     } else {
       res[`${parentKey ? `${parentKey}.${key}` : key}`] = value;
     }
@@ -43,4 +43,4 @@ const flattern = (obj, res = {}, parentKey) => {
   return res;
 };
 
-console.log(flattern(obj));
+console.log(flatternObj(obj));
